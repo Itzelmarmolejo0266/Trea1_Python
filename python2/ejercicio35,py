@@ -1,0 +1,31 @@
+class CalculadoraNomina:
+    """Calcula pagos de nómina, incluyendo horas extra."""
+
+    def __init__(self):
+        self.pagos = {}  # {nombre: pago}
+
+    def calcular_pago(self, horas, tarifa):
+        if horas <= 40:
+            return horas * tarifa
+        horas_extra = horas - 40
+        return 40 * tarifa + horas_extra * tarifa * 1.5
+
+    def registrar_empleado(self, nombre, horas, tarifa):
+        pago = self.calcular_pago(horas, tarifa)
+        self.pagos[nombre] = pago
+        return pago
+
+    def nomina_total(self):
+        return sum(self.pagos.values())
+
+    def empleado_mejor_pagado(self):
+        if not self.pagos:
+            return None
+        return max(self.pagos, key=self.pagos.get)
+
+
+cn = CalculadoraNomina()
+cn.registrar_empleado("Ana", 45, 10)
+cn.registrar_empleado("Bob", 38, 12)
+print(f"Nómina total: {cn.nomina_total()}")
+print(f"Mejor pagado: {cn.empleado_mejor_pagado()}")
