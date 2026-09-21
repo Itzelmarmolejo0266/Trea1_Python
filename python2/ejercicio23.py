@@ -1,29 +1,32 @@
-class AgendaCitas:
-    """Gestiona horarios disponibles y reservados para citas."""
+class CarroCompras:
 
-    def __init__(self, horarios):
-        self.disponibles = list(horarios)  # copia, no la lista original
-        self.reservas = {}  # {hora: nombre}
+    def __init__(self):
+        self.articulos = {}
 
-    def reservar_hora(self, hora, nombre):
-        if hora not in self.disponibles:
-            return False
-        self.disponibles.remove(hora)
-        self.reservas[hora] = nombre
-        return True
+    def agregar_articulo(self, nombre, precio):
+        self.articulos[nombre] = precio
 
-    def cancelar_cita(self, hora):
-        if hora in self.reservas:
-            del self.reservas[hora]
-            self.disponibles.append(hora)
+    def total_carrito(self):
+        return sum(self.articulos.values())
 
-    def horarios_libres(self):
-        return self.disponibles
+    def articulos_por_rango(self, precio_min, precio_max):
+        resultado = []
+
+        for nombre, precio in self.articulos.items():
+            if precio_min <= precio <= precio_max:
+                resultado.append(nombre)
+
+        return resultado
 
 
-ac = AgendaCitas(["9:00", "10:00", "11:00"])
-print(ac.reservar_hora("9:00", "Ana"))       # True
-print(ac.reservar_hora("9:00", "Bob"))       # False, ya está ocupada
-print(f"Libres: {ac.horarios_libres()}")
-ac.cancelar_cita("9:00")
-print(f"Libres tras cancelar: {ac.horarios_libres()}")
+carrito = CarroCompras()
+
+carrito.agregar_articulo("Cuaderno", 3.50)
+carrito.agregar_articulo("Esfero", 1.25)
+carrito.agregar_articulo("Mochila", 25.00)
+carrito.agregar_articulo("Colores", 4.50)
+
+print("Artículos:", carrito.articulos)
+print("Total del carrito:", carrito.total_carrito())
+print("Artículos entre $3 y $10:",
+      carrito.articulos_por_rango(3, 10))
