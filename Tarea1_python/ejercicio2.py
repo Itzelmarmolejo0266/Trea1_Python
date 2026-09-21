@@ -33,20 +33,3 @@ print(at.palabras_unicas)
 print(at.orden_palabras)
 print(at.contar_palabras())
 
-# TABLA PEQUEÑA
-#
-# Color       ¿Es nuevo?    ¿Se guarda?
-# rojo        Sí            Sí
-# azul        Sí            Sí
-# verde       Sí            Sí
-# rojo        No            No
-# amarillo    Sí            Sí
-#
-# Lista final:
-# ["rojo", "azul", "verde", "amarillo"]
-#
-# Conjunto final:
-# {"rojo", "azul", "verde", "amarillo"}
-#
-# Cantidad de colores únicos:
-# 4
