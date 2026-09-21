@@ -1,28 +1,36 @@
-class ContadorAsistencia:
-    
-
+class AnalizadorTexto:
     def __init__(self):
-        self.eventos = {}  
+        self.palabras_unicas = set()
+        self.orden_palabras = []
 
-    def registrar_asistente(self, evento, nombre):
-        if evento not in self.eventos:
-            self.eventos[evento] = []
-        self.eventos[evento].append(nombre)
+    def agregar_palabra(self, palabra):
+        # Entrada:
+        # Recibe colores individuales mediante agregar_palabra()
+        # o varios colores mediante agregar_multiples(*args).
 
-    def registrar_multiples(self, evento, *nombres):
-        for nombre in nombres:
-            self.registrar_asistente(evento, nombre)
+        if palabra not in self.palabras_unicas:
+            self.palabras_unicas.add(palabra)
+            self.orden_palabras.append(palabra)
 
-    def asistentes_evento(self, evento):
-        return self.eventos.get(evento, [])
+        # Proceso:
+        # Guarda los colores en un conjunto para evitar duplicados
+        # y en una lista para mantener el orden de llegada.
+        # Después cuenta cuántos colores únicos existen.
 
-    def evento_mas_concurrido(self):
-        if not self.eventos:
-            return None
-        return max(self.eventos, key=lambda ev: len(self.eventos[ev]))
+    def contar_palabras(self):
+        return len(self.palabras_unicas)
 
-ca = ContadorAsistencia()
-ca.registrar_multiples("Concierto", "Ana", "Bob", "Carlos")
-ca.registrar_multiples("Teatro", "Ana", "ja", "hache", "Boby", "Carla")
-print(f"Asistentes a Concierto: {ca.asistentes_evento('Concierto')}")
-print(f"Evento más concurrido: {ca.evento_mas_concurrido()}")
+    def agregar_multiples(self, *args):
+        for palabra in args:
+            self.agregar_palabra(palabra)
+
+
+at = AnalizadorTexto()
+
+at.agregar_multiples("rojo", "azul", "verde", "rojo", "amarillo")
+
+print(at.palabras_unicas)
+print(at.orden_palabras)
+print(at.contar_palabras())
+
+
