@@ -1,33 +1,101 @@
-class AnalizadorResenas:
-    """Analiza reseñas de 1 a 5 estrellas."""
+class InversorSecuencia:
 
-    def __init__(self):
-        self.resenas = []
+    def invertir_lista(self, lista):
+        invertida = []
 
-    def agregar_resena(self, estrellas):
-        if 1 <= estrellas <= 5:
-            self.resenas.append(estrellas)
-            return True
-        return False
+        for i in range(len(lista) - 1, -1, -1):
+            invertida.append(lista[i])
 
-    def promedio_estrellas(self):
-        if not self.resenas:
-            return 0
-        return sum(self.resenas) / len(self.resenas)
+        return invertida
 
-    def resenas_por_estrella(self, n):
-        return self.resenas.count(n)
+    def invertir_multiples(self, *listas):
+        resultado = {}
 
-    def porcentaje_positivas(self):
-        if not self.resenas:
-            return 0
-        positivas = [r for r in self.resenas if r >= 4]
-        return len(positivas) / len(self.resenas) * 100
+        for lista in listas:
+            clave = tuple(lista)
+            resultado[clave] = self.invertir_lista(lista)
+
+        return resultado
 
 
-ar = AnalizadorResenas()
-for e in [5, 4, 3, 5, 1]:
-    ar.agregar_resena(e)
-print(f"Promedio: {ar.promedio_estrellas()}")
-print(f"Con 5 estrellas: {ar.resenas_por_estrella(5)}")
-print(f"% positivas: {ar.porcentaje_positivas()}")
+inversor = InversorSecuencia()
+
+print("Lista invertida:", inversor.invertir_lista([5, 10, 15, 20]))
+
+print("Varias listas invertidas:",
+      inversor.invertir_multiples(
+          [2, 4, 6, 8],
+          [100, 200, 300],
+          [7, 14, 21, 28]
+      ))
+
+
+# Entrada:
+# Recibe una lista individual o varias listas.
+#
+# Ejemplo:
+# [5, 10, 15, 20]
+#
+# También puede recibir:
+# [2, 4, 6, 8]
+# [100, 200, 300]
+# [7, 14, 21, 28]
+
+
+# Proceso:
+# Recorre cada lista desde la última posición
+# hasta la primera y guarda los elementos
+# en una nueva lista.
+#
+# Cuando recibe varias listas, guarda cada
+# resultado invertido dentro de un diccionario.
+
+
+# Salida:
+# Devuelve una lista invertida o un diccionario
+# con las listas originales y sus versiones invertidas.
+
+
+# BOSQUEJO
+#
+# Lista original:
+# [5, 10, 15, 20]
+#
+# Posiciones:
+#  0 = 5
+#  1 = 10
+#  2 = 15
+#  3 = 20
+#
+# Recorrido inverso:
+# 3, 2, 1, 0
+#
+# Resultado:
+# [20, 15, 10, 5]
+#
+#
+# Varias listas:
+#
+# [2, 4, 6, 8] -> [8, 6, 4, 2]
+#
+# [100, 200, 300] -> [300, 200, 100]
+#
+# [7, 14, 21, 28] -> [28, 21, 14, 7]
+
+
+# TABLA PEQUEÑA
+#
+# Lista original       Resultado invertido
+# [5, 10, 15, 20]      [20, 15, 10, 5]
+# [2, 4, 6, 8]          [8, 6, 4, 2]
+# [100, 200, 300]       [300, 200, 100]
+# [7, 14, 21, 28]       [28, 21, 14, 7]
+#
+#
+# Diccionario final:
+#
+# {
+#     (2, 4, 6, 8): [8, 6, 4, 2],
+#     (100, 200, 300): [300, 200, 100],
+#     (7, 14, 21, 28): [28, 21, 14, 7]
+# }
